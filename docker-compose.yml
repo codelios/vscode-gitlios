@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    restart: "always"
+    image: "vscode-gitlios:12.14.1-alpine3.11"
+    volumes:
+      - /opt/code/src/github.com/codelios/vscode-gitlios:/tmp/web
+      - /opt/code/src/github.com/codelios/git-stat-common:/tmp/gitlios
