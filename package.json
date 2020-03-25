@@ -33,6 +33,9 @@
 		"prod": "webpack --mode production",
 		"watch-webpack": "webpack --mode development --watch"
 	},
+	"dependencies": {
+		"git-stat-common": "file:../gitlios"
+	},
 	"devDependencies": {
 		"@types/glob": "7.1.1",
 		"@types/mocha": "7.0.2",
