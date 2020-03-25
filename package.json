@@ -10,21 +10,21 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:gitlios.helloWorld"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "gitlios.helloWorld",
-				"title": "Hello World"
+				"title": "GitLios: Hello World"
 			}
 		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
-        "compile-tsc": "tsc -p ./",
-        "compile": "npm run prod",
+		"compile": "tsc -p ./",
+		"compile-webpack": "npm run prod",
 		"lint": "eslint src --ext ts",
 		"watch": "tsc -watch -p ./",
 		"pretest": "npm run compile && npm run lint",
