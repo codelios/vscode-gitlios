@@ -34,7 +34,7 @@
 		"watch-webpack": "webpack --mode development --watch"
 	},
 	"dependencies": {
-		"git-stat-common": "file:../gitlios"
+		"git-stat-common": "file:../git-stat-common"
 	},
 	"devDependencies": {
 		"@types/glob": "7.1.1",
