@@ -16,6 +16,7 @@ export class MyCodeLensProvider {
         let c: vscode.Command = {
             command: cmdShowGitHistoryStr,
             title: `Show Git History`,
+            arguments: [ document.uri.fsPath ]
         };
         return new vscode.CodeLens(topRight, c);
     }

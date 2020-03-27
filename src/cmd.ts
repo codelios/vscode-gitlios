@@ -2,9 +2,10 @@
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
+'use strict';
 
 import * as vscode from 'vscode';
-import { GitHistoryPanel } from './mywebview';
+import { showGitHistory } from './mygit';
 
 export const cmdShowGitHistoryStr = "gitlios.showGitHistory";
 
@@ -15,8 +16,8 @@ function cmdHelloWorld() {
 		vscode.window.showInformationMessage('Hello World!');
 }
 
-function cmdShowGitHistory() {
-        GitHistoryPanel.createOrShow();
+function cmdShowGitHistory(fsPath: string) {
+    showGitHistory(fsPath);
 }
 
 // The command has been defined in the package.json file

@@ -94,17 +94,6 @@ export class GitHistoryPanel {
         // Vary the webview's content based on where it is located in the editor.
         console.log(this._panel.viewColumn);
 		switch (this._panel.viewColumn) {
-			case vscode.ViewColumn.Two:
-				this._updateGitHistory(webview);
-				return;
-
-			case vscode.ViewColumn.Three:
-				this._updateGitHistory(webview);
-                return;
-            case vscode.ViewColumn.Beside:
-                this._updateGitHistory(webview);
-                return;
-			case vscode.ViewColumn.One:
 			default:
 				this._updateGitHistory(webview);
 				return;
