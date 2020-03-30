@@ -11,12 +11,17 @@ import { cmdShowGitHistoryStr } from './cmd';
 export class MyCodeLensProvider {
 
 
-    getCodeLens(document: vscode.TextDocument): vscode.CodeLens {
+    getCodeLens(document: vscode.TextDocument): (vscode.CodeLens | undefined) {
         let topRight = new vscode.Range(0, 0, 0, 0);
+        const workspaceFolders =  vscode.workspace.workspaceFolders;
+        if (workspaceFolders === undefined || workspaceFolders === null) {
+            return undefined;
+        }
+        const docRoot = workspaceFolders[0].uri.fsPath;
         let c: vscode.Command = {
             command: cmdShowGitHistoryStr,
             title: `Show Git History`,
-            arguments: [ document.uri.fsPath ]
+            arguments: [ docRoot, document.uri.fsPath ]
         };
         return new vscode.CodeLens(topRight, c);
     }
@@ -25,6 +30,9 @@ export class MyCodeLensProvider {
         if (document !== null && document !== undefined) {
             if (document.uri !== null && document.uri !== undefined) {
                 const codeLens = this.getCodeLens(document);
+                if (codeLens === null || codeLens === undefined) {
+                    return null;
+                }
                 return new Promise(
                     resolve => {
                         resolve([codeLens]);

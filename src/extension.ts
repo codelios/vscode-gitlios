@@ -4,7 +4,7 @@
 
 import * as vscode from 'vscode';
 import { registerCommands } from './cmd';
-import { registerCodeLens } from './mylens';
+import { registerCodeLens } from './mycodelens';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed

@@ -16,8 +16,8 @@ function cmdHelloWorld() {
 		vscode.window.showInformationMessage('Hello World!');
 }
 
-function cmdShowGitHistory(fsPath: string) {
-    showGitHistory(fsPath);
+function cmdShowGitHistory(gitRoot: string, fsPath: string) {
+    showGitHistory(gitRoot, fsPath);
 }
 
 // The command has been defined in the package.json file
