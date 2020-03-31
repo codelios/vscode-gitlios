@@ -6,6 +6,7 @@
 'use strict';
 import { GitHistoryPanel } from './mywebview';
 import { IGit, ICommitInfo, MyIsomorphicGit } from 'git-stat-common';
+import { Config } from 'git-stat-common/lib/config';
 
 const gitClient: IGit = new MyIsomorphicGit();
 
@@ -13,7 +14,8 @@ export function showGitHistory(extensionPath: string, gitRoot: string, fsPath: s
     console.log(fsPath);
     GitHistoryPanel.createOrShow();
     GitHistoryPanel.currentPanel?.setBusy();
-    gitClient.GetLogsForFile(gitRoot, fsPath).then(
+    const config: Config = new Config();
+    gitClient.GetLogsForFile(config, gitRoot, fsPath).then(
         (commitInfo: ICommitInfo) => {
             GitHistoryPanel.currentPanel?.updateCommits(commitInfo);
             let count = 0;
