@@ -6,7 +6,7 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { ICommitInfo } from 'git-stat-common';
+import { ICommitInfo, ICommitEntry } from 'git-stat-common';
 
 export class GitHistoryPanel {
 
@@ -16,7 +16,11 @@ export class GitHistoryPanel {
 
 	private readonly _panel: vscode.WebviewPanel;
 
-	private _disposables: vscode.Disposable[] = [];
+    private _disposables: vscode.Disposable[] = [];
+
+    private commitInfo: ICommitInfo | null = null;
+
+    private busy: boolean = false;
 
     public static createOrShow() {
 
@@ -60,15 +64,6 @@ export class GitHistoryPanel {
 			this._disposables
 		);
 
-		// Handle messages from the webview
-		this._panel.webview.onDidReceiveMessage(
-			(message: ICommitInfo) => {
-                console.log(" Received " + message.commits.length + " commits");
-			},
-			null,
-			this._disposables
-        );
-
         this._update();
     }
 
@@ -97,23 +92,53 @@ export class GitHistoryPanel {
 		}
     }
 
-    private _updateGitHistory(webview: vscode.Webview) {
-        this._panel.title = 'Git History';
-        this._panel.webview.html = `<!DOCTYPE html>
+    private getCommits(): string {
+        if (this.commitInfo === undefined || this.commitInfo === null) {
+            return ``;
+        }
+        var lines = [];
+        for ( const commit of this.commitInfo.commits) {
+            const committerName = this.commitInfo.commitDict.get(commit.committerID);
+            lines.push(committerName + " " + (new Date(commit.committerTimestamp*1000)).toUTCString() + " " + commit.message);
+        }
+        return `<p>` + lines.join("</p><p>") + `</p`;
+    }
+
+    private getHTML(): string {
+        let commitsHTML = ``;
+        if (this.busy) {
+            commitsHTML = `About to read and parse Git History Logs . This operation may take some time ..`;
+        } else {
+            commitsHTML = this.getCommits();
+        }
+        return `<!DOCTYPE html>
         <html lang="en">
         <head>
             <meta charset="UTF-8">
         </head>
         <body>
             <p>
-            Crisper Git History
+            Git History for file
             </p>
+        ` + commitsHTML + `
         </body>
         </html>`;
+
+    }
+
+    private _updateGitHistory(webview: vscode.Webview) {
+        this._panel.title = 'Git History';
+        this._panel.webview.html = this.getHTML();
+    }
+
+    public setBusy() {
+        this.busy = true;
+        this._update();
     }
 
     public updateCommits(commitInfo: ICommitInfo) {
-        console.log('Updating commits');
-        this._panel.webview.postMessage(commitInfo);
+        this.commitInfo = commitInfo;
+        this.busy = false;
+        this._update();
     }
 }

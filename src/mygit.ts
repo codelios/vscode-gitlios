@@ -12,6 +12,7 @@ const gitClient: IGit = new MyIsomorphicGit();
 export function showGitHistory(extensionPath: string, gitRoot: string, fsPath: string) : void {
     console.log(fsPath);
     GitHistoryPanel.createOrShow();
+    GitHistoryPanel.currentPanel?.setBusy();
     gitClient.GetLogsForFile(gitRoot, fsPath).then(
         (commitInfo: ICommitInfo) => {
             GitHistoryPanel.currentPanel?.updateCommits(commitInfo);
