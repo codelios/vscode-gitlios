@@ -6,3 +6,4 @@ services:
     volumes:
       - /opt/code/src/github.com/codelios/vscode-gitlios:/tmp/web
       - /opt/code/src/github.com/codelios/git-stat-common:/tmp/git-stat-common
+      - /opt/code/src/github.com/apache/commons-lang:/tmp/commons-lang

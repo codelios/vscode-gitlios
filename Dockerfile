@@ -3,7 +3,7 @@
 # https://hub.docker.com/_/node?tab=tags
 ARG NODE_VERSION=12.14.1-alpine3.11
 FROM node:${NODE_VERSION}
-RUN apk add python make g++ krb5-libs && \
+RUN apk add python make g++ krb5-libs git && \
     node --version && \
     npm --version
 RUN echo "npm updated on Mar 25 2020" && \
