@@ -9,13 +9,6 @@ import { showGitHistory } from './mygit';
 
 export const cmdShowGitHistoryStr = "gitlios.showGitHistory";
 
-function cmdHelloWorld() {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
-}
-
 function cmdShowGitHistory(extensionPath: string, gitRoot: string, fsPath: string) {
     showGitHistory(extensionPath, gitRoot, fsPath);
 }
