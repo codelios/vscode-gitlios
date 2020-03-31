@@ -34,7 +34,7 @@
 		"watch-webpack": "webpack --mode development --watch"
 	},
 	"dependencies": {
-		"git-stat-common": "0.0.1"
+		"git-stat-common": "0.0.2"
 	},
 	"devDependencies": {
 		"@types/glob": "7.1.1",

@@ -4,7 +4,6 @@
 // https://opensource.org/licenses/MIT
 
 'use strict';
-import * as path from 'path';
 import { GitHistoryPanel } from './mywebview';
 import { IGit, ICommitInfo, MyIsomorphicGit } from 'git-stat-common';
 
@@ -13,8 +12,6 @@ const gitClient: IGit = new MyIsomorphicGit();
 export function showGitHistory(gitRoot: string, fsPath: string) : void {
     console.log(fsPath);
     GitHistoryPanel.createOrShow();
-    const relativefsPath = path.relative(gitRoot, fsPath);
-    console.log(relativefsPath);
     gitClient.GetLogsForFile(gitRoot, fsPath).then(
         (commitInfo: ICommitInfo) => {
             let count = 0;
