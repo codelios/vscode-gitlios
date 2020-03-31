@@ -11,7 +11,7 @@ import { Config } from 'git-stat-common/lib/config';
 const gitClient: IGit = new MyIsomorphicGit();
 
 export function showGitHistory(extensionPath: string, gitRoot: string, fsPath: string) : void {
-    GitHistoryPanel.createOrShow();
+    GitHistoryPanel.createOrShow(extensionPath);
     GitHistoryPanel.currentPanel?.setBusy();
     const config: Config = new Config();
     gitClient.GetLogsForFile(config, gitRoot, fsPath).then(

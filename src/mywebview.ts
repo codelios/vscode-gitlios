@@ -22,7 +22,7 @@ export class GitHistoryPanel {
 
     private busy: boolean = false;
 
-    public static createOrShow() {
+    public static createOrShow(extensionPath: string) {
 
 		const column = vscode.window.activeTextEditor
 			? vscode.window.activeTextEditor.viewColumn
