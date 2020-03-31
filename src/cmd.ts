@@ -16,15 +16,14 @@ function cmdHelloWorld() {
 		vscode.window.showInformationMessage('Hello World!');
 }
 
-function cmdShowGitHistory(gitRoot: string, fsPath: string) {
-    showGitHistory(gitRoot, fsPath);
+function cmdShowGitHistory(extensionPath: string, gitRoot: string, fsPath: string) {
+    showGitHistory(extensionPath, gitRoot, fsPath);
 }
 
 // The command has been defined in the package.json file
 // Now provide the implementation of the command with registerCommand
 // The commandId parameter must match the command field in package.json
 export function registerCommands(subscriptions: Array<vscode.Disposable>) {
-    subscriptions.push(vscode.commands.registerCommand('gitlios.helloWorld', cmdHelloWorld));
     subscriptions.push(vscode.commands.registerCommand(cmdShowGitHistoryStr, cmdShowGitHistory));
 }
 

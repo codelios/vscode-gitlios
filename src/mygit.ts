@@ -9,11 +9,12 @@ import { IGit, ICommitInfo, MyIsomorphicGit } from 'git-stat-common';
 
 const gitClient: IGit = new MyIsomorphicGit();
 
-export function showGitHistory(gitRoot: string, fsPath: string) : void {
+export function showGitHistory(extensionPath: string, gitRoot: string, fsPath: string) : void {
     console.log(fsPath);
     GitHistoryPanel.createOrShow();
     gitClient.GetLogsForFile(gitRoot, fsPath).then(
         (commitInfo: ICommitInfo) => {
+            GitHistoryPanel.currentPanel?.updateCommits(commitInfo);
             let count = 0;
             for (const commit of commitInfo.commits) {
                 if (count < 5) {
@@ -21,7 +22,7 @@ export function showGitHistory(gitRoot: string, fsPath: string) : void {
                 }
                 count++;
             }
-            console.log(count + " commits");
+            console.log("Inside mygit " + count + " commits");
         },
         err => {
             console.log(err);

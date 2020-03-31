@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     registerCommands(context.subscriptions);
 
-    registerCodeLens(context.subscriptions);
+    registerCodeLens(context.subscriptions, context.extensionPath);
 }
 
 // this method is called when your extension is deactivated

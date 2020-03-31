@@ -6,6 +6,7 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import { ICommitInfo } from 'git-stat-common';
 
 export class GitHistoryPanel {
 
@@ -61,12 +62,8 @@ export class GitHistoryPanel {
 
 		// Handle messages from the webview
 		this._panel.webview.onDidReceiveMessage(
-			message => {
-				switch (message.command) {
-					case 'alert':
-						vscode.window.showErrorMessage(message.text);
-						return;
-				}
+			(message: ICommitInfo) => {
+                console.log(" Received " + message.commits.length + " commits");
 			},
 			null,
 			this._disposables
@@ -113,5 +110,10 @@ export class GitHistoryPanel {
             </p>
         </body>
         </html>`;
+    }
+
+    public updateCommits(commitInfo: ICommitInfo) {
+        console.log('Updating commits');
+        this._panel.webview.postMessage(commitInfo);
     }
 }

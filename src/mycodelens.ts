@@ -10,6 +10,11 @@ import { cmdShowGitHistoryStr } from './cmd';
 
 export class MyCodeLensProvider {
 
+    private extensionPath:string;
+
+    constructor(extensionPath: string) {
+        this.extensionPath = extensionPath;
+    }
 
     getCodeLens(document: vscode.TextDocument): (vscode.CodeLens | undefined) {
         let topRight = new vscode.Range(0, 0, 0, 0);
@@ -21,7 +26,7 @@ export class MyCodeLensProvider {
         let c: vscode.Command = {
             command: cmdShowGitHistoryStr,
             title: `Show Git History`,
-            arguments: [ docRoot, document.uri.fsPath ]
+            arguments: [ this.extensionPath, docRoot, document.uri.fsPath ]
         };
         return new vscode.CodeLens(topRight, c);
     }
@@ -50,9 +55,9 @@ export class MyCodeLensProvider {
 
 }
 
-const provider = new MyCodeLensProvider();
 
-export function registerCodeLens(subscriptions: Array<vscode.Disposable>) {
+export function registerCodeLens(subscriptions: Array<vscode.Disposable>, extensionPath: string) {
     const allSelector: vscode.DocumentSelector = { scheme: 'file', language: '*' };
+    const provider = new MyCodeLensProvider(extensionPath);
     subscriptions.push(vscode.languages.registerCodeLensProvider(allSelector, provider));
 }
